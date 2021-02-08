@@ -14,7 +14,6 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     var tvSelectedDate: TextView? = null
     var tvAgeInMinutes: TextView? = null
-    val myCalendar = Calendar.getInstance()
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showDatePicker(view: View) {
+        val myCalendar = Calendar.getInstance()
         val year = myCalendar.get(Calendar.YEAR)
         val month = myCalendar.get(Calendar.MONTH)
         val dayOfMonth = myCalendar.get(Calendar.DAY_OF_MONTH)
@@ -49,6 +49,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun calculateAgeInMinutes(dateSelected: Date?) {
+        val currentDate = Date()
+        val diffDates: Long = currentDate.time - dateSelected!!.time
+        val seconds = diffDates / 1000
+        val minutes = seconds / 60
 
+        tvAgeInMinutes?.text = minutes.toString()
     }
 }
